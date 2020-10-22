@@ -57,6 +57,7 @@
 #'
 #' import blink
 #' @param dat Data set
+#' @param b Number of buckets
 #' @param k Parameter k, which is the number of shingle, tokens, or grams to break the string into
 #' @param key Unique identifier
 #' @return Recall and runtime
@@ -66,9 +67,9 @@
 #' eval.blocksetup(RLdata500, k=5, b=22, key=identity.RLdata500)
 
 eval.blocksetup <- function(dat=minidata, k=5,b=21, key){
-	runtime <- as.numeric(system.time(mapping <- block_setup_v2(dat, b=b, k=k))[3] )
+	runtime <- as.numeric((mapping <- block_setup_v2(dat, b=b, k=k))[3] )
 	recall<- confusion.from.blocking (blocking=mapping,true_ids=key,recall.only=TRUE)[[1]]
-	return(data.frame(recall, runtime))
+	return(data.frame(recall))
 }
 
 

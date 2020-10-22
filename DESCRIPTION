@@ -4,11 +4,13 @@ Title: TLSH for Record Linkage
 Version: 0.1.0
 Authors@R: person("Rebecca", "Steorts", email = "beka@stat.duke.edu",
   role = c("aut", "cre"))
-Depends: R (>= 3.0.2),
+Depends: R (>=  3.5.0),
 	blink,
 	stats,
 	utils,
-	plyr
+	plyr,
+	igraph, 
+	bit64
 Imports: Rcpp,
 	stringi,
 	SnowballC

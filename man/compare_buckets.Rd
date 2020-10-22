@@ -8,6 +8,8 @@ compare_buckets(hashed_signatures, max_bucket_size = 1000)
 }
 \arguments{
 \item{hashed_signatures}{The hashed signatures}
+
+\item{max_bucket_size}{The largest block size allowed by user}
 }
 \value{
 max_bucket_size The largest bucket size (or block size) that one

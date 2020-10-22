@@ -11,6 +11,8 @@ eval.blocksetup(dat = minidata, k = 5, b = 21, key)
 
 \item{k}{Parameter k, which is the number of shingle, tokens, or grams to break the string into}
 
+\item{b}{Number of buckets}
+
 \item{key}{Unique identifier}
 }
 \value{

@@ -43,6 +43,7 @@ shingled_record_to_index_vec <- function(shingled_record, universal_set) {
 #' Function to create a matrix of minhashed signatures
 #'
 #' @import blink
+#' @import plyr
 #' @param shingled_records Shingled records
 #' @param p Number of permutations to be applied to the hash function
 #' @return Computes an integer-valued matrix of minhash signatures with one row per permutation and one column per record
@@ -141,7 +142,6 @@ primest <- function(n1=1, n2){
 
 # TODO: replace this with digest
 rhash_funcs <- function(n, size, vector.valued, perfect=FALSE) {
-	require(bit64)
 	# Determine a suitable prime greater than size and =< 2*size
 	candidate_primes <- primest(size,2*size)
 	# Take the first suitable prime for simplicity's sake
@@ -158,7 +158,6 @@ rhash_funcs <- function(n, size, vector.valued, perfect=FALSE) {
 			the_prime <- as.integer64(the_prime)
 			size <- as.integer64(size)
 			hash_func <- function(x) {
-				require(bit64)
 				x <- as.integer64(x)
 				h <- ((a*x+b) %% the_prime) %% size
 				return(as.integer(h))
@@ -231,6 +230,7 @@ hash_signature <- function(signature,b){
 #' signature matrix
 #' import bit64
 #'
+#' @import bit64
 #' @param a_band Band from the signature matrix M
 #' @return a 64 bit integer
 #' @export
@@ -241,7 +241,6 @@ hash_signature <- function(signature,b){
 #' my_hash(combined_band)
 
 my_hash <- function(a_band) {
-	#require(bit64)
 	hash64 <- function(x) {
 		# if x is a vector, concatenate all its digits into one long number
 		# use paste() to concatenate, then as.integer64 to turn into a big number
@@ -295,7 +294,10 @@ extract_pairs_from_band <- function(a_band) {
 
 #' Function that creates a similarity graph and divides it into communities (or blocks) for entity resolution
 #'
+#' @import igraph
+#' @import plyr
 #' @param hashed_signatures The hashed signatures
+#' @param max_bucket_size The largest block size allowed by user
 #' @return max_bucket_size The largest bucket size (or block size) that one
 #' can handle
 #' @export
@@ -330,7 +332,6 @@ compare_buckets <- function(hashed_signatures, max_bucket_size=1000) {
     edgelisting <- system.time(edgelist <- as.matrix(do.call(rbind,apply(hashed_signatures,1,extract_pairs_from_band))), gcFirst=FALSE)
     print(edgelisting)
     print(dim(edgelist))
-	require(igraph)
 	# Actually build the graph
 	    # edgelist contains only edges in one direction, so we need to tell igraph
 	    # that edges are directionless
