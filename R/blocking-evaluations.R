@@ -8,10 +8,9 @@
 #' @return A vector of that returns the recall and the precision
 #' @export
 #' @examples
-#' data("RLdata500")
-#' klsh.blocks <- klsh(RLdata500, p=20, num.blocks=5, k=2)
-#' confusion.from.blocking(klsh.blocks, identity.RLdata500)
-#' confusion.from.blocking(klsh.blocks, identity.RLdata500, recall.only=TRUE)
+#' r.set <- RLdata500[1:3,c(-2)]
+#' tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:500,c(-2)], b=22, save_signature=FALSE, k=2)
+#' confusion.from.blocking(tlsh.blocks, identity.RLdata500, recall.only=TRUE)
 
 confusion.from.blocking <- function(blocking, true_ids, recall.only=FALSE) {
 	# convert blocking into a vector of labels
@@ -62,9 +61,8 @@ confusion.from.blocking <- function(blocking, true_ids, recall.only=FALSE) {
 #' @return A list of the blocks ids that corresponds to each block
 #' @export
 #' @examples
-#' data("RLdata500")
-#' klsh.blocks <- klsh(RLdata500, p=20, num.blocks=5, k=2)
-#' block.ids.from.blocking(klsh.blocks)
+#' tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:500,c(-2)], b=22, save_signature=FALSE, k=2)
+#' block.ids.from.blocking(tlsh.blocks)
 
 block.ids.from.blocking <- function(blocking) {
 	nn <- sum(sapply(blocking,length))
@@ -81,9 +79,8 @@ block.ids.from.blocking <- function(blocking) {
 #' @return The reduction ratio
 #' @export
 #' @examples
-#' data("RLdata500")
-#' klsh.blocks <- klsh(RLdata500, p=20, num.blocks=5, k=2)
-#' block.ids <- block.ids.from.blocking(klsh.blocks)
+#' tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:500,c(-2)], b=22, save_signature=FALSE, k=2)
+#' block.ids <- block.ids.from.blocking(tlsh.blocks)
 #' reduction.ratio(block.ids)
 
 reduction.ratio <- function(block.labels) 1 - sum(choose(table(block.labels),2)) / choose(length(block.labels),2)
@@ -95,9 +92,8 @@ reduction.ratio <- function(block.labels) 1 - sum(choose(table(block.labels),2))
 #' @return The reduction ratio
 #' @export
 #' @examples
-#' data("RLdata500")
-#' klsh.blocks <- klsh(RLdata500, p=20, num.blocks=5, k=2)
-#' reduction.ratio.from.blocking(klsh.blocks)
+#' tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:500,c(-2)], b=22, save_signature=FALSE, k=2)
+#' reduction.ratio.from.blocking(tlsh.blocks)
 reduction.ratio.from.blocking <- function(blocking) {
 	reduction.ratio(block.ids.from.blocking(blocking))
 }

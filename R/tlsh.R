@@ -84,8 +84,8 @@ eval.blocksetup <- function(dat=minidata, k=5,b=21, key){
 #' data set
 #' @export
 #' @examples
-#' head(data <- RLdata500[-c(2,4)])
-#' block_setup_v2(RLdata500, b=22, save_signature=FALSE, k=2)
+#' r.set <- RLdata500[1:3,c(-2)]
+#' block_setup_v2(r.set = RLdata500[1:3,c(-2)], b=22, save_signature=FALSE, k=2)
 
 block_setup_v2 <- function(r.set, b=22, save_signature=FALSE,  k=5) {
 	# for each record r in r.set
