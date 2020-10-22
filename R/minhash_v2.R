@@ -19,13 +19,13 @@ shingles <- function(record,k){
 	}
 	tokens <- lapply(X=seq(1,nchar(string)-k+1), k_substring)
 	return(tokens)
-}	
+}
 
 #' Function to convert to tell what index the shingle corresponds to in the record
 #'
 #' @param shingled_record Shingled record
 #' @param universal_set Universal set of all shingles
-#' @return the index regarding where the shingle falls in the record 
+#' @return the index regarding where the shingle falls in the record
 #' @export
 #' @examples
 #' shingles("Alexander",2)
@@ -40,9 +40,9 @@ shingled_record_to_index_vec <- function(shingled_record, universal_set) {
 	#return(1:length(universal_set) %in% token_indices)
 }
 
-#' Function to create a matrix of minhashed signatures 
+#' Function to create a matrix of minhashed signatures
 #'
-#' @import RecordLinkage
+#' @import blink
 #' @param shingled_records Shingled records
 #' @param p Number of permutations to be applied to the hash function
 #' @return Computes an integer-valued matrix of minhash signatures with one row per permutation and one column per record
@@ -130,7 +130,7 @@ primest <- function(n1=1, n2){
 #' Function to generate a vector of random hash functions (or optionally one vector-valued function)
 #'
 #' @param n Number of random hash functions
-#' @param size Range of each size 
+#' @param size Range of each size
 #' @param vector.valued Flag for outputing vector of functions or vector-valued function
 #' @param perfect Flag for whether a perfect permutation should be done, or just a hash function
 #' @return Vector of n hash functions or a function which will take a number and return a vector of n different hashes of it
@@ -143,7 +143,7 @@ primest <- function(n1=1, n2){
 rhash_funcs <- function(n, size, vector.valued, perfect=FALSE) {
 	require(bit64)
 	# Determine a suitable prime greater than size and =< 2*size
-	candidate_primes <- primest(size,2*size) 
+	candidate_primes <- primest(size,2*size)
 	# Take the first suitable prime for simplicity's sake
 	the_prime <- candidate_primes[1]
 	# Create a single random hash function and return it
@@ -196,11 +196,11 @@ rhash_funcs <- function(n, size, vector.valued, perfect=FALSE) {
 }
 
 
-#' Function to take a signature matrix M composed of b bands and r rows and return 
+#' Function to take a signature matrix M composed of b bands and r rows and return
 #' a bucket for each band for each record
 #'
-#' @param signature Signature matrix M composed of b bands and r rows 
-#' @param b Number of bands 
+#' @param signature Signature matrix M composed of b bands and r rows
+#' @param b Number of bands
 #' @return Bucket for each band for each record
 #' @export
 #' @examples
@@ -227,7 +227,7 @@ hash_signature <- function(signature,b){
 	return(t(band_hash))
 }
 
-#' Function that applies a hash function to each column of the band from the 
+#' Function that applies a hash function to each column of the band from the
 #' signature matrix
 #' import bit64
 #'
@@ -256,10 +256,10 @@ my_hash <- function(a_band) {
 #' import bit64
 #'
 #' @param a_band Band of the signature matrix M
-#' @return The edgelist of record pairs that are connected 
+#' @return The edgelist of record pairs that are connected
 #' @export
 #' @examples
-#' band1 <- c(2,1,2,1,2)  
+#' band1 <- c(2,1,2,1,2)
 #' extract_pairs_from_band(band1)
 #' band2 <- c(6,7,8,9,6)
 #' extract_pairs_from_band(band2)
@@ -268,8 +268,8 @@ my_hash <- function(a_band) {
 
 extract_pairs_from_band <- function(a_band) {
    	# Each record has been mapped to some bucket within this band
-   	# We now want to note down which pairs of records got mapped to the _same_   
-   	# bucket in this band (not caring about whether they got put in the same  
+   	# We now want to note down which pairs of records got mapped to the _same_
+   	# bucket in this band (not caring about whether they got put in the same
    	# bucket in other bands)
    	record_pairs_in_bucket <- function(a_bucket) {
    		# print(paste("In bucket",a_bucket))
@@ -293,7 +293,7 @@ extract_pairs_from_band <- function(a_band) {
    	return(t(edgelist))
 }
 
-#' Function that creates a similarity graph and divides it into communities (or blocks) for entity resolution 
+#' Function that creates a similarity graph and divides it into communities (or blocks) for entity resolution
 #'
 #' @param hashed_signatures The hashed signatures
 #' @return max_bucket_size The largest bucket size (or block size) that one
@@ -319,12 +319,12 @@ compare_buckets <- function(hashed_signatures, max_bucket_size=1000) {
 	# Form a graph, with records as nodes, and edges between candidate pairs
 	# Divide the graph into dense sub-graphs (communities), subject to a maximum
 	# size limit
-	
+
     # Each row of hashed_signatures represents the bucket-mapping of
     # the records for a different minhash permutation
     # Apply extract_pairs_from_band to each row, and then combine the resulting
     # matrices of candidate-pair records into one big edgelist
-    
+
     # TODO: Try using plyr rather than apply + do.call to see about speed
     print("Creating edgelist")
     edgelisting <- system.time(edgelist <- as.matrix(do.call(rbind,apply(hashed_signatures,1,extract_pairs_from_band))), gcFirst=FALSE)
@@ -341,16 +341,16 @@ compare_buckets <- function(hashed_signatures, max_bucket_size=1000) {
 	print(graphing)
 	# Remove multiple and self edges, if they exist
 	candidate_pairs_graph <- simplify(candidate_pairs_graph)
-	
+
 	# Try dividing the graph into communities. Use a hierarchical community method
 	# so that if the initial cut has communities which are too big, we can go further down
 	# until they are small enough to work with.
 	print("Dividing graph into communities initially")
 	communitying <- system.time(initial_community <- fastgreedy.community(candidate_pairs_graph), gcFirst=FALSE)
-	print(communitying)	
+	print(communitying)
 	save(candidate_pairs_graph,file = "candidate_pairs_graph.Rdata")
-	
-	
+
+
 	# The graph has served its purpose and should go away
 	rm(candidate_pairs_graph)
 
@@ -370,7 +370,7 @@ compare_buckets <- function(hashed_signatures, max_bucket_size=1000) {
 	blocks_members <- comm_membership
 	num_blocks <- comm_number
 	save(blocks_members, file="blocks_members.Rdata")
-	
+
 	# Now create a list, saying which records are in which block
 	records_per_block <- function(b) { which(blocks_members == b)}
 	blocks <- lapply(1:num_blocks,records_per_block)

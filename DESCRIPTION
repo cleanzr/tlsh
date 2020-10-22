@@ -1,16 +1,24 @@
 Package: tlsh
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+Type: Package
+Title: TLSH for Record Linkage
+Version: 0.1.0
+Authors@R: person("Rebecca", "Steorts", email = "beka@stat.duke.edu",
+  role = c("aut", "cre"))
+Depends: R (>= 3.0.2),
+	blink,
+	stats,
+	utils,
+	plyr
+Imports: Rcpp,
+	stringi,
+	SnowballC
+Suggests:
+    knitr,
+    ggplot2,
+    rmarkdown
+VignetteBuilder: knitr
+Description: An implementation of the blocking algorithm TLSH in Steorts, Ventura, Sadinle, Fienberg (2014) <DOI:10.1007/978-3-319-11257-2_20>, which is a k-means variant of locality sensitive hashing. The method is illustrated with examples and a vignette. 
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
+License: GPL-3
 RoxygenNote: 7.1.1.9000
