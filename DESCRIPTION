@@ -11,9 +11,7 @@ Depends: R (>=  3.5.0),
 	plyr,
 	igraph, 
 	bit64
-Imports: Rcpp,
-	stringi,
-	SnowballC
+Imports: 
 Suggests:
     knitr,
     ggplot2,
