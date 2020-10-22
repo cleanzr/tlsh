@@ -21,7 +21,7 @@ A vector of that returns the recall and the precision
 Perform evaluations (recall) for blocking.
 }
 \examples{
-r.set <- RLdata500[1:3,c(-2)]
-tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:500,c(-2)], b=22, save_signature=FALSE, k=2)
+r.set <- RLdata500[1:250,c(-2)]
+tlsh.blocks <- block_setup_v2(r.set, b=22, save_signature=FALSE, k=2)
 confusion.from.blocking(tlsh.blocks, identity.RLdata500, recall.only=TRUE)
 }

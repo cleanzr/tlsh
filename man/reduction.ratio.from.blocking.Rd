@@ -16,6 +16,6 @@ The reduction ratio
 Returns the reduction ratio associated with a blocking method
 }
 \examples{
-tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:500,c(-2)], b=22, save_signature=FALSE, k=2)
+tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:250,c(-2)], b=22, save_signature=FALSE, k=2)
 reduction.ratio.from.blocking(tlsh.blocks)
 }

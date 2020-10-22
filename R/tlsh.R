@@ -63,7 +63,8 @@
 #' @return Recall and runtime
 #' @export
 #' @examples
-#' eval.blocksetup(RLdata500, k=2, b=22, key=identity.RLdata500)
+#' r.set <- RLdata500[1:250,c(-2)]
+#' eval.blocksetup(r.set, k=2, b=22, key=identity.RLdata500)
 
 eval.blocksetup <- function(dat, k=5, b=21, key){
 	#runtime <- as.numeric((mapping <- block_setup_v2(dat, b=b, k=k))[3] )

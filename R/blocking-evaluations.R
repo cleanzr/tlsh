@@ -8,8 +8,8 @@
 #' @return A vector of that returns the recall and the precision
 #' @export
 #' @examples
-#' r.set <- RLdata500[1:3,c(-2)]
-#' tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:500,c(-2)], b=22, save_signature=FALSE, k=2)
+#' r.set <- RLdata500[1:250,c(-2)]
+#' tlsh.blocks <- block_setup_v2(r.set, b=22, save_signature=FALSE, k=2)
 #' confusion.from.blocking(tlsh.blocks, identity.RLdata500, recall.only=TRUE)
 
 confusion.from.blocking <- function(blocking, true_ids, recall.only=FALSE) {
@@ -92,7 +92,7 @@ reduction.ratio <- function(block.labels) 1 - sum(choose(table(block.labels),2))
 #' @return The reduction ratio
 #' @export
 #' @examples
-#' tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:500,c(-2)], b=22, save_signature=FALSE, k=2)
+#' tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:250,c(-2)], b=22, save_signature=FALSE, k=2)
 #' reduction.ratio.from.blocking(tlsh.blocks)
 reduction.ratio.from.blocking <- function(blocking) {
 	reduction.ratio(block.ids.from.blocking(blocking))
