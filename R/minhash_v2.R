@@ -46,6 +46,7 @@ shingled_record_to_index_vec <- function(shingled_record, universal_set) {
 #' @import plyr
 #' @param shingled_records Shingled records
 #' @param p Number of permutations to be applied to the hash function
+#' @param do_one_hash_and_record Combination of one hash and one record
 #' @return Computes an integer-valued matrix of minhash signatures with one row per permutation and one column per record
 #' @export
 #' @examples
@@ -54,7 +55,7 @@ shingled_record_to_index_vec <- function(shingled_record, universal_set) {
 #' head(all_the_shingles <- apply(minidata,1,shingles,k=8))
 #' head(minhash.minidata <- minhash_v2(all_the_shingles, p=10))
 
-minhash_v2 <- function(shingled_records, p) {
+minhash_v2 <- function(shingled_records, p, do_one_hash_and_record=do_one_hash_and_record) {
 	n.records <- length(shingled_records)
 
 	# Figure out the universal set of all tokens
@@ -70,25 +71,25 @@ minhash_v2 <- function(shingled_records, p) {
 
 	# prepare a function to do the combination of one hash and one record
 	# Presumes: rec_col is a vector saying which shingles (from the universal set) # are present in the shingled record
-	do_one_hash_and_record <- function(h,rec_col,timing=FALSE) {
-		if (!timing) {
-			updated_v <- vector_of_hash_funcs[[h]](rec_col)
-		} else {
-			applying_hash <- system.time(updated_v <- vector_of_hash_funcs[[h]](rec_col))[3]
-		}
-		if (!timing) {
-			min_value <- min(updated_v)
-		} else {
-			taking_min <- system.time(min_value <- min(updated_v))[3]
-		}
-		if (timing) {
-			print("Applying hash function")
-			print(applying_hash)
-			print("Getting values")
-			print(getting_values)
-			print("Taking the minimum")
-			print(taking_min)
-		}
+	do_one_hash_and_record <- function(h, rec_col) {
+		# if (!timing) {
+		# 	updated_v <- vector_of_hash_funcs[[h]](rec_col)
+		# } else {
+			applying_hash <- (updated_v <- vector_of_hash_funcs[[h]](rec_col))[3]
+		# }
+		# if (!timing) {
+		# 	min_value <- min(updated_v)
+		# } else {
+			taking_min <- (min_value <- min(updated_v))[3]
+		# }
+		# if (timing) {
+		# 	print("Applying hash function")
+		# 	print(applying_hash)
+		# 	print("Getting values")
+		# 	print(getting_values)
+		# 	print("Taking the minimum")
+		# 	print(taking_min)
+		#}
 		return(min_value)
 	}
 	# Create a function to apply all the hash functions to one record

@@ -4,12 +4,18 @@
 \alias{minhash_v2}
 \title{Function to create a matrix of minhashed signatures}
 \usage{
-minhash_v2(shingled_records, p)
+minhash_v2(
+  shingled_records,
+  p,
+  do_one_hash_and_record = do_one_hash_and_record
+)
 }
 \arguments{
 \item{shingled_records}{Shingled records}
 
 \item{p}{Number of permutations to be applied to the hash function}
+
+\item{do_one_hash_and_record}{Combination of one hash and one record}
 }
 \value{
 Computes an integer-valued matrix of minhash signatures with one row per permutation and one column per record
