@@ -4,7 +4,7 @@
 \alias{eval.blocksetup}
 \title{Function to evaluate the blocking step}
 \usage{
-eval.blocksetup(dat = minidata, k = 5, b = 21, key)
+eval.blocksetup(dat, k = 5, b = 21, key)
 }
 \arguments{
 \item{dat}{Data set}

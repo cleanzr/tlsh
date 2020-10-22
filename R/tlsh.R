@@ -66,7 +66,7 @@
 #' head(data <- RLdata500[-c(2,4)])
 #' eval.blocksetup(RLdata500, k=5, b=22, key=identity.RLdata500)
 
-eval.blocksetup <- function(dat=minidata, k=5,b=21, key){
+eval.blocksetup <- function(dat, k=5,b=21, key){
 	runtime <- as.numeric((mapping <- block_setup_v2(dat, b=b, k=k))[3] )
 	recall<- confusion.from.blocking (blocking=mapping,true_ids=key,recall.only=TRUE)[[1]]
 	return(data.frame(recall))
