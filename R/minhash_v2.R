@@ -350,7 +350,7 @@ compare_buckets <- function(hashed_signatures, max_bucket_size=1000) {
 	print("Dividing graph into communities initially")
 	communitying <- system.time(initial_community <- fastgreedy.community(candidate_pairs_graph), gcFirst=FALSE)
 	print(communitying)
-	save(candidate_pairs_graph,file = "candidate_pairs_graph.Rdata")
+	#save(candidate_pairs_graph,file = "candidate_pairs_graph.Rdata")
 
 
 	# The graph has served its purpose and should go away
@@ -371,7 +371,7 @@ compare_buckets <- function(hashed_signatures, max_bucket_size=1000) {
 	print(subdividing)
 	blocks_members <- comm_membership
 	num_blocks <- comm_number
-	save(blocks_members, file="blocks_members.Rdata")
+	#save(blocks_members, file="blocks_members.Rdata")
 
 	# Now create a list, saying which records are in which block
 	records_per_block <- function(b) { which(blocks_members == b)}
