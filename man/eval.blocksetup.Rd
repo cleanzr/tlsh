@@ -22,6 +22,5 @@ Recall and runtime
 import blink
 }
 \examples{
-head(data <- RLdata500[-c(2,4)])
-eval.blocksetup(RLdata500, k=5, b=22, key=identity.RLdata500)
+eval.blocksetup(RLdata500, k=2, b=22, key=identity.RLdata500)
 }

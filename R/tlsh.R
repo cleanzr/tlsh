@@ -63,11 +63,11 @@
 #' @return Recall and runtime
 #' @export
 #' @examples
-#' head(data <- RLdata500[-c(2,4)])
-#' eval.blocksetup(RLdata500, k=5, b=22, key=identity.RLdata500)
+#' eval.blocksetup(RLdata500, k=2, b=22, key=identity.RLdata500)
 
-eval.blocksetup <- function(dat, k=5,b=21, key){
-	runtime <- as.numeric((mapping <- block_setup_v2(dat, b=b, k=k))[3] )
+eval.blocksetup <- function(dat, k=5, b=21, key){
+	#runtime <- as.numeric((mapping <- block_setup_v2(dat, b=b, k=k))[3] )
+  mapping <- block_setup_v2(dat, b=b, k=k)
 	recall<- confusion.from.blocking (blocking=mapping,true_ids=key,recall.only=TRUE)[[1]]
 	return(data.frame(recall))
 }
