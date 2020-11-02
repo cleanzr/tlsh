@@ -1,6 +1,6 @@
 Package: tlsh
 Type: Package
-Title: Transitive locality-sensitive hashing (LSH) for Record Linkage
+Title: Transitive Locality-Sensitive Hashing (LSH) for Record Linkage
 Version: 0.1.0
 Authors@R: person("Rebecca", "Steorts", email = "beka@stat.duke.edu",
   role = c("aut", "cre"))
