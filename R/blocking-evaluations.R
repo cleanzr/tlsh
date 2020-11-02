@@ -61,7 +61,7 @@ confusion.from.blocking <- function(blocking, true_ids, recall.only=FALSE) {
 #' @return A list of the blocks ids that corresponds to each block
 #' @export
 #' @examples
-#' tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:500,c(-2,-4)], b=10, save_signature=FALSE, k=1)
+#' tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:250,c(-2,-4)], b=10, save_signature=FALSE, k=1)
 #' block.ids.from.blocking(tlsh.blocks)
 
 block.ids.from.blocking <- function(blocking) {
