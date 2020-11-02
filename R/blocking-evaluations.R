@@ -61,7 +61,7 @@ confusion.from.blocking <- function(blocking, true_ids, recall.only=FALSE) {
 #' @return A list of the blocks ids that corresponds to each block
 #' @export
 #' @examples
-#' tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:250,c(-2)], b=22, save_signature=FALSE, k=2)
+#' tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:500,c(-2,-4)], b=10, save_signature=FALSE, k=1)
 #' block.ids.from.blocking(tlsh.blocks)
 
 block.ids.from.blocking <- function(blocking) {
@@ -79,7 +79,7 @@ block.ids.from.blocking <- function(blocking) {
 #' @return The reduction ratio
 #' @export
 #' @examples
-#' tlsh.blocks <- block_setup_v2(r.set = RLdata250[1:500,c(-2)], b=22, save_signature=FALSE, k=2)
+#' tlsh.blocks <- block_setup_v2(r.set = RLdata500[1:500,c(-2)], b=22, save_signature=FALSE, k=2)
 #' block.ids <- block.ids.from.blocking(tlsh.blocks)
 #' reduction.ratio(block.ids)
 
