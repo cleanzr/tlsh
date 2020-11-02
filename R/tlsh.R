@@ -63,7 +63,7 @@
 #' @return Recall and runtime
 #' @export
 #' @examples
-#' r.set <- RLdata500[1:250,c(-2,-4)]
+#' r.set <- RLdata500[1:50,c(-2)]
 #' eval.blocksetup(r.set, k=2, b=22, key=identity.RLdata500)
 
 eval.blocksetup <- function(dat, k=5, b=21, key){
